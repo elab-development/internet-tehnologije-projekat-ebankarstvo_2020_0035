@@ -1,0 +1,16 @@
+.trans{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgb(227, 201, 134);
+    border-radius: 5%;
+    font-style: italic;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    column-gap: 50px;
+    align-items: center;
+    justify-content: center;
+}
+.desc{
+    display: flex;
+    flex-direction: row;
+   
+}
