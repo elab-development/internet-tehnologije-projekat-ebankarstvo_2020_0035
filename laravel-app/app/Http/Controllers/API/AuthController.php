@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\AccountResource;
 class AuthController extends Controller
 {
     public function register(Request $request) {
@@ -37,6 +38,11 @@ class AuthController extends Controller
         //treba da dobijemo novi token sa kojim mozemo da se krecemo dalje kroz str
         $token=$user->createToken('auth_token')->plainTextToken;
         return response()->json(['message'=>'Welcome, '.$user->name,'access_token'=>$token,'token_type'=>'Bearer']);
+    }
+    public function logout(Request $request)
+    {
+       $request->user()->tokens()->delete();
+       return response()->json(['message'=> 'Successfully logged out!']);
     }
     
 }

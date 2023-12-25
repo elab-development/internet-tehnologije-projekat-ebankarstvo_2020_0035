@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Resources\TransactionResource;
-
+use Illuminate\Support\Facades\Validator;
 class TransactionController extends Controller
 {
     /**
@@ -30,7 +30,26 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'amount' => 'required|numeric',
+            'account_id' => 'required|exists:accounts,id',
+            'category_id' => 'required|exists:categories,id',
+           
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $transaction = Transaction::create([
+            "title" => $request->title,
+            "amount" => $request->amount,
+            "account_id" => $request->account_id,
+            "category_id" => $request->category_id, 
+        ]);
+
+        return response()->json(['message' => 'Transaction created successfully',new TransactionResource($transaction)]);
     }
 
     /**
@@ -39,11 +58,7 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         return new TransactionResource($transaction);
-        // $trans = Transaction::find($id);
-        // if (is_null($trans)) {
-        //     return response()->json('Data not found', 404);
-        // }
-        // return $trans;
+       
     }
 
     /**
@@ -59,7 +74,27 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'amount' => 'required|numeric',
+            'account_id' => 'required|exists:accounts,id',
+            'category_id' => 'required|exists:categories,id',
+            
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $transaction->title=$request->title;
+        $transaction->amount=$request->amount;
+        $transaction->account_id=$request->account_id;
+        $transaction->category_id=$request->category_id;
+       
+
+        $transaction->save();
+
+        return response()->json(['message' => 'Transaction updated successfully', new TransactionResource($transaction)]);
     }
 
     /**
@@ -67,6 +102,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+
+        return response()->json(['Transaction deleted successfully']);
     }
 }
