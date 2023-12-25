@@ -36,7 +36,7 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'web' => [//za web.php
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -58,7 +58,7 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
+    //breeze pocetnici, jetstream je jaci
     'providers' => [
         'users' => [
             'driver' => 'eloquent',

@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\API\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,12 +22,13 @@ use App\Http\Controllers\CategoryController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login',[AuthController::class,'login']);
 Route::get('/users', [UserController::class, 'index']); //api/users
 Route::get('/users/{id}', [UserController::class, 'show']); //api/users/id
 
-Route::get('/transactions', [TransactionController::class, 'index']); //api/transactions
-Route::get('/transactions/{id}', [TransactionController::class, 'show']);  //api/transactions/id
+Route::resource('transactions', TransactionController::class); //api/transactions
+//Route::get('/transactions/{id}', [TransactionController::class, 'show']);  //api/transactions/id
 
 Route::get('/accounts', [AccountController::class, 'index']); //api/accounts
 Route::get('/accounts/{id}', [AccountController::class, 'show']);  //api/accounts/id

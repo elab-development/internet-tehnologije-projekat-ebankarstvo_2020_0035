@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Resources\TransactionResource;
 
 class TransactionController extends Controller
 {
@@ -13,7 +14,7 @@ class TransactionController extends Controller
     public function index()
     {
         $trans=Transaction::all();
-        return $trans;
+        return TransactionResource::collection($trans);
     }
 
     /**
@@ -35,13 +36,14 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Transaction $transaction)
     {
-        $trans = Transaction::find($id);
-        if (is_null($trans)) {
-            return response()->json('Data not found', 404);
-        }
-        return $trans;
+        return new TransactionResource($transaction);
+        // $trans = Transaction::find($id);
+        // if (is_null($trans)) {
+        //     return response()->json('Data not found', 404);
+        // }
+        // return $trans;
     }
 
     /**
