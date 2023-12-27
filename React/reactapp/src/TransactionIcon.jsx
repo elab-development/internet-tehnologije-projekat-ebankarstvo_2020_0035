@@ -1,5 +1,5 @@
 import React from "react";
-import { IconType } from "react-icons/ci";
+//import { IconType } from "react-icons/ci";
 const TransactionIcon = ({ icon, size = 20 }) => {
   const DynamicIcon = icon;
 
