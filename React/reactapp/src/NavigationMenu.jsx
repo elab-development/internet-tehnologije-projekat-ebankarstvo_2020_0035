@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import "./Icon.css";
 
 const NavigationMenu = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -42,6 +46,24 @@ const NavigationMenu = () => {
               </Link>
             </li>
           </ul>
+        </div>
+        <div className="social-icons">
+          <a href="https://twitter.com/Mobi_Banka" className="social-icon">
+            <FontAwesomeIcon icon={faTwitter} />
+          </a>
+
+          <a
+            href="https://www.facebook.com/MobiBankaRS/"
+            className="social-icon"
+          >
+            <FontAwesomeIcon icon={faFacebook} />
+          </a>
+          <a
+            href="https://www.mobibanka.rs/sr/o-nama/mobi-banka/kontakt/"
+            className="social-icon"
+          >
+            <FontAwesomeIcon icon={faEnvelope} />
+          </a>
         </div>
       </div>
     </nav>
