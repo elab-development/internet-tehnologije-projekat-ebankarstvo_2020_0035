@@ -21,7 +21,7 @@ class AccountResource extends JsonResource
             'type' => $this->type,
             'balance' => $this->balance,
             'user'=>$this->resource->user
-            // Add other attributes as needed
+            
         ];
     }
 }

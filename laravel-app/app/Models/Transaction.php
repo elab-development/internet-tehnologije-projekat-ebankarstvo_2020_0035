@@ -12,7 +12,7 @@ class Transaction extends Model
     protected $fillable =['title','amount','category_id','account_id'];
     protected $guarded = ['id','amount'];
 
-    public function accounts (){
+    public function account (){
         return $this->belongsTo(Account::class);
     }
 

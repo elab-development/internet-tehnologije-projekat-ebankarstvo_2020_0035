@@ -17,7 +17,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'=>fake()->randomElement(['Transfer', 'Deposit','Credit','Payment','Interest']),
+            'title'=>$this->faker->randomElement(['Transfer', 'Deposit','Credit','Payment','Interest']),
         ];
     }
 }

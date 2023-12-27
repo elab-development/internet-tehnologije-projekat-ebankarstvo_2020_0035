@@ -15,6 +15,7 @@ class TransactionResource extends JsonResource
     public static $wrap='transaction';
     public function toArray(Request $request): array
     {
+        $this->resource->load('account');
         return[
         'id'=>$this->resource->id,
         'title'=>$this->resource->title,

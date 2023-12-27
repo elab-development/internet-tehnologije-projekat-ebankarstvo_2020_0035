@@ -17,10 +17,10 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-        'title'=>fake()->randomElement(['Car insurance', 'Check','Credit','Cash payment']),
-        'amount'=>fake()->randomFloat(2,-99999,99999),
-        'account_id'=>\App\Models\Account::factory(),
-        'category_id'=>\App\Models\Category::factory(),
+            'title' => $this->faker->randomElement(['Car insurance', 'Check', 'Credit', 'Cash payment']),
+            'amount' => $this->faker->randomFloat(2, -99999, 99999),
+            'account_id' => \App\Models\Account::factory(),
+            'category_id' => \App\Models\Category::factory(),
         ];
     }
 }
