@@ -5,15 +5,15 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CategorySeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $numberOfCategories = 5;
+        $numberOfUsers = 10;
 
-        factory(Category::class, $numberOfCategories)->create();
+        factory(User::class, $numberOfUsers)->create();
     }
 }

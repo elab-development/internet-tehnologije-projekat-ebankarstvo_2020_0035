@@ -8,21 +8,10 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\AccountResource;
 class AccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $accounts=Account::all();
+        $accounts = Account::all();
         return $accounts;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -50,7 +39,7 @@ class AccountController extends Controller
             "user_id" => $request->user_id, 
         ]);
 
-        return response()->json(['Account created successfully', $account->fresh()]);
+        return response()->json(['message' => 'Account created successfully', 'data' => new AccountResource($account->fresh())]);
     }
 
     /**
@@ -58,19 +47,13 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        $accounts = Account::find($id);
-        if (is_null($accounts)) {
+        $account = Account::find($id);
+
+        if (is_null($account)) {
             return response()->json('Data not found', 404);
         }
-        return $accounts;
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Account $account)
-    {
-        //
+        return $account;
     }
 
     /**
@@ -90,17 +73,9 @@ class AccountController extends Controller
             return response()->json($validator->errors());
         }
 
-        $account->title=$request->title;
-        $account->number=$request->number;
-        $account->type=$request->type;
-        $account->balance=$request->balance;
-        $account->user_id=$request->user_id;
+        $account->update($request->all());
 
-        $account->save();
-
-      
-
-        return response()->json(['Account updated successfully', new AccountResource($account)]);
+        return response()->json(['message' => 'Account updated successfully', 'data' => new AccountResource($account)]);
     }
 
     /**
@@ -110,6 +85,6 @@ class AccountController extends Controller
     {
         $account->delete();
 
-        return response()->json(['Account deleted successfully']);
+        return response()->json(['message' => 'Account deleted successfully']);
     }
 }

@@ -8,6 +8,10 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\API\AuthController;
+use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
+use Laravel\Fortify\Http\Controllers\NewPasswordController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,3 +46,20 @@ Route::get('/accounts/{id}', [AccountController::class, 'show']);  //api/account
 
 Route::get('/categories', [CategoryController::class, 'index']); //api/categories
 Route::get('/categories/{id}', [CategoryController::class, 'show']);  //api/categories/id
+Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
+    ->middleware(['guest'])
+    ->name('password.request');
+    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->middleware(['guest'])
+    ->name('password.email');
+
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+    ->middleware(['guest'])
+    ->name('password.reset');
+
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+    ->middleware(['guest'])
+    ->name('password.update');
+// Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+// Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+// Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
