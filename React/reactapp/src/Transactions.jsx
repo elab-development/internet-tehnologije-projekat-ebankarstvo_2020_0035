@@ -11,7 +11,7 @@ function Transactions() {
   ];
   return (
     <div className="divTrans text-center ">
-      <h5 className="transTitle d-felx ">Istorija transakcija</h5>
+      <h5 className="transTitle d-felx ">Recent Transactions</h5>
       {transactionsData.map((transaction, index, icon) => (
         <Transaction
           key={index}

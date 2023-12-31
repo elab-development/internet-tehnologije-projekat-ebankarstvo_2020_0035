@@ -20,3 +20,19 @@
   margin-top: 20px;
   font-style: oblique;
 }
+
+.history {
+  font-size: larger;
+  height: 40px;
+  margin-top: 20px;
+  font-style: oblique;
+}
+
+.allTrans {
+  display: flex;
+  flex-direction: row;
+  font-style: italic;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
+}
