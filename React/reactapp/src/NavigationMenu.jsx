@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,13 @@ const NavigationMenu = () => {
   const handleNavCollapse = () => {
     setIsNavCollapsed(!isNavCollapsed);
   };
+
+  const navigate = useNavigate();
+  function handleLogout(event) {
+    event.preventDefault();
+
+    navigate("/");
+  }
 
   return (
     <nav className="navbar navbar-expand-lg bg-warning fixed-top py-0">
@@ -64,6 +71,9 @@ const NavigationMenu = () => {
           >
             <FontAwesomeIcon icon={faEnvelope} />
           </a>
+        </div>
+        <div>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
     </nav>

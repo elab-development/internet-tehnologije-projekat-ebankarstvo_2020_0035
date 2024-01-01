@@ -9,7 +9,7 @@ const AllTransactions = () => {
     // Simulate fetching transaction history from an API
     const fetchTransactions = async () => {
       try {
-        const response = await fetch(" http://localhost:3001/transaction");
+        const response = await fetch(" http://localhost:3001/transaction"); //Pokretanje json servera: json-server --watch example.json --port 3001
         const data = await response.json();
         setTransactions(data);
       } catch (error) {
