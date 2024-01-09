@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("C:\Users\sandr\Domaci\React\reactapp\images\background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

@@ -1,16 +1,38 @@
-.trans{
-    display: flex;
-    flex-direction: row;
-    border: 1px solid rgb(227, 201, 134);
-    border-radius: 5%;
-    font-style: italic;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    column-gap: 50px;
-    align-items: center;
-    justify-content: center;
+.trans {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgb(227, 201, 134);
+  border-radius: 5%;
+  font-style: italic;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  column-gap: 50px;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
 }
-.desc{
-    display: flex;
-    flex-direction: row;
-   
+.desc {
+  display: flex;
+  flex-direction: row;
+}
+
+.transTitle {
+  height: 40px;
+  margin-top: 20px;
+  font-style: oblique;
+}
+
+.history {
+  font-size: larger;
+  height: 40px;
+  margin-top: 20px;
+  font-style: oblique;
+}
+
+.allTrans {
+  display: flex;
+  flex-direction: row;
+  font-style: italic;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
 }

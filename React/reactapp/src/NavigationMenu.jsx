@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import "./Icon.css";
 
 const NavigationMenu = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -7,6 +11,13 @@ const NavigationMenu = () => {
   const handleNavCollapse = () => {
     setIsNavCollapsed(!isNavCollapsed);
   };
+
+  const navigate = useNavigate();
+  function handleLogout(event) {
+    event.preventDefault();
+
+    navigate("/");
+  }
 
   return (
     <nav className="navbar navbar-expand-lg bg-warning fixed-top py-0">
@@ -42,6 +53,27 @@ const NavigationMenu = () => {
               </Link>
             </li>
           </ul>
+        </div>
+        <div className="social-icons">
+          <a href="https://twitter.com/Mobi_Banka" className="social-icon">
+            <FontAwesomeIcon icon={faTwitter} />
+          </a>
+
+          <a
+            href="https://www.facebook.com/MobiBankaRS/"
+            className="social-icon"
+          >
+            <FontAwesomeIcon icon={faFacebook} />
+          </a>
+          <a
+            href="https://www.mobibanka.rs/sr/o-nama/mobi-banka/kontakt/"
+            className="social-icon"
+          >
+            <FontAwesomeIcon icon={faEnvelope} />
+          </a>
+        </div>
+        <div>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
     </nav>
