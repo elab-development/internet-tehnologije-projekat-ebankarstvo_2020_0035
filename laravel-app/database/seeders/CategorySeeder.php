@@ -14,6 +14,6 @@ class CategorySeeder extends Seeder
     {
         $numberOfCategories = 5;
 
-        factory(Category::class, $numberOfCategories)->create();
+        \App\Models\Category::factory()->count($numberOfCategories)->create();
     }
 }

@@ -12,6 +12,6 @@ class AccountSeeder extends Seeder
 
         $numberOfAccounts = 10;
 
-        factory(Account::class, $numberOfAccounts)->create();
+        \App\Models\Account::factory()->count($numberOfAccounts)->create();
     }
 }

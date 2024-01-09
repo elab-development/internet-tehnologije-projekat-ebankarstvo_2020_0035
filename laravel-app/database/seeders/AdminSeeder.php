@@ -4,16 +4,17 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Admin;
 
-class UserSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $numberOfUsers = 10;
+        $numberOfAdmins = 2;
 
-        \App\Models\User::factory()->count($numberOfUsers)->create();
+        \App\Models\Admin::factory()->count($numberOfAdmins)->create();
     }
 }

@@ -16,6 +16,6 @@ class TransactionSeeder extends Seeder
        $numberOfTransactions = 5;
 
        
-       factory(Transaction::class, $numberOfTransactions)->create();
+       \App\Models\Transaction::factory()->count($numberOfTransactions)->create();
     }
 }
