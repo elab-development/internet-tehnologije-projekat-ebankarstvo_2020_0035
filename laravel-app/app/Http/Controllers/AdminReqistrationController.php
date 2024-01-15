@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminReqistrationController extends Controller
 {
-    use HasApiTokens;
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -33,24 +33,30 @@ class AdminReqistrationController extends Controller
 
         $token = $admin->createToken('auth_token')->plainTextToken;
 
-        return response()->json(compact('admin', 'token', 'token_type', 'Bearer'), 200);
+        $res = [
+            'admin' => $admin,
+            'token' => $token
+        ];
+        return response($res, 201);
     }
 
     public function login(Request $request)
     {
-        if (!Auth::guard('admin')->attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $admin = Auth::guard('admin')->user();
+            $token = $admin->createToken('auth_token')->plainTextToken;
+
+            return response()->json(['message' => 'Welcome, ' . $admin->name, 'access_token' => $token, 'token_type' => 'Bearer']);
         }
 
-        $admin = Auth::guard('admin')->user();
-        $token = $admin->createToken('auth_token')->plainTextToken;
-
-        return response()->json(['message' => 'Welcome, ' . $admin->name, 'access_token' => $token, 'token_type' => 'Bearer']);
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
+        Auth::guard('admin')->logout();
 
         return response()->json(['message' => 'Successfully logged out!']);
     }

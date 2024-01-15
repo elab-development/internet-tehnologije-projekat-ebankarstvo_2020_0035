@@ -62,6 +62,8 @@ Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->middleware(['guest'])
     ->name('password.update');
-    Route::post('/admin/register', [AdminReqistrationController::class, 'register']);
-    Route::post('/admin/login', [AdminReqistrationController::class, 'login']);
-    Route::post('/admin/logout', [AdminReqistrationController::class, 'logout']);
+
+Route::post('/admin/register', [AdminReqistrationController::class, 'register']);
+Route::post('/admin/login', [AdminReqistrationController::class, 'login'])->name('admin.login.post');
+Route::post('/admin/logout', [AdminReqistrationController::class, 'logout']);
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');

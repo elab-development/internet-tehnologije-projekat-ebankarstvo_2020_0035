@@ -12,26 +12,29 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\AccountResource;
 class AuthController extends Controller
 {
-    public function register(Request $request) {
-        //Log::info('Request data: ' . json_encode($request->all()));
-        $validator=Validator::make($request->all(),[//salje ahtev i proverava kljuc vrednost parove
-            'name'=>'required|string|max:255',
-            'email'=>'required|string|max:255|email|unique:users',
-            'password'=>'required|string|min:8'
+    public function register(Request $request)
+    {
+        // Validation rules for registration
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admins',
+            'password' => 'required|string|min:8',
         ]);
 
-        if($validator->fails())
-        return response()->json(['error' => $validator->errors()], 422);
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
 
-        $user=User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password),
+        // Create a new admin
+        $admin = Admin::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
-        $token=$user->createToken('auth_token')->plainTextToken;
-        // return response()->json(['data'=>$user,'access_token'=>$token,'token_type'=>'Bearer']);
-    
-        return response()->json(compact('user', 'token', 'token_type'), 200);
+
+        // You can customize the response as needed
+        return response()->json(['message' => 'Admin registered successfully', 'admin' => $admin], 201);
     }
     public function login(Request $request) {//ne postoji u bazi kao
         if(!Auth::attempt($request->only('email','password')))//Auth se koristi za pristup autentif korisniku
