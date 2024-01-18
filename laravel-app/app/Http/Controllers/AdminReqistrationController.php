@@ -31,11 +31,12 @@ class AdminReqistrationController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $admin->createToken('auth_token')->plainTextToken;
+       
 
         $res = [
-            'admin' => $admin,
-            'token' => $token
+            'Admin registered!!',
+            'admin' => $admin
+            
         ];
         return response($res, 201);
     }
@@ -46,7 +47,7 @@ class AdminReqistrationController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $admin = Auth::guard('admin')->user();
-            $token = $admin->createToken('auth_token')->plainTextToken;
+            $token = $admin->createToken('admin_token')->plainTextToken;
 
             return response()->json(['message' => 'Welcome, ' . $admin->name, 'access_token' => $token, 'token_type' => 'Bearer']);
         }

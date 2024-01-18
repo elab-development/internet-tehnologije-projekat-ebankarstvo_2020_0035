@@ -12,7 +12,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\AdminReqistrationController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
-
+use App\Http\Controllers\TransferController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,21 +26,25 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController;
 */
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/user', function(Request $request) {
-        return auth()->user();
-    });
-    //Route::get('/admin', [AdminController::class, 'index']); //api/users
-    Route::resource('accounts', AccountController::class)->only(['update','store','destroy']);
-    Route::resource('transactions', TransactionController::class)->only(['store', 'update', 'destroy']);
+    //Route::get('/user', function(Request $request) {
+    //    return auth()->user();
+    //});
+    Route::get('/user', [UserController::class, 'authenticatedUser']);
+    Route::resource('transactions', TransactionController::class)->only( 'store');
+    Route::post('/transfer', [TransferController::class, 'transfer']);
+   //i jos da dodam rutu da moze pravi Transakciju
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
 });
-Route::group(['middleware' => ['admin']],function () {
-   
+Route::group(['middleware' => ['auth:sanctum', 'admin']],function () {
+    Route::resource('accounts', AccountController::class)->only(['update','store','destroy']);
+    Route::resource('transactions', TransactionController::class)->only([ 'update', 'destroy']);
+    Route::resource('accounts', AccountController::class)->only(['update','store','destroy']);
+    Route::resource('transactions', TransactionController::class)->only(['store', 'update', 'destroy']);
     Route::get('/users', [UserController::class, 'index']); //api/users
     Route::get('/users/{id}', [UserController::class, 'show']); //api/users/id
-
-    Route::resource('transactions', TransactionController::class);
+    Route::get('/transactions/{id}', [TransactionController::class, 'show']); //api/users/id
+    Route::get('/transactions', [TransactionController::class, 'index']);
     Route::get('/accounts', [AccountController::class, 'index']); //api/accounts
     Route::get('/accounts/{id}', [AccountController::class, 'show']);  //api/accounts/id
     Route::get('/categories', [CategoryController::class, 'index']); //api/categories

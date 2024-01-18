@@ -8,6 +8,12 @@ use App\Http\Resources\TransactionResource;
 use Illuminate\Support\Facades\Validator;
 class TransactionController extends Controller
 {
+    public function index(){
+        $transactions = Transaction::all();
+
+        return TransactionResource::collection($transactions);
+    }
+     
     public function store(Request $request)
     {
         return $this->processTransaction($request, new Transaction());
