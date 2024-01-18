@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
 });
-Route::group(['middleware' => ['auth:sanctum', 'admin']],function () {
+Route::group(['middleware' => ['auth:sanctum', 'admin']],function () {//3.tip
     Route::resource('accounts', AccountController::class)->only(['update','store','destroy']);
     Route::resource('transactions', TransactionController::class)->only([ 'update', 'destroy']);
     Route::resource('accounts', AccountController::class)->only(['update','store','destroy']);
@@ -67,7 +67,7 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->middleware(['guest'])
     ->name('password.update');
 
-Route::post('/admin/register', [AdminReqistrationController::class, 'register']);
+Route::post('/admin/register', [AdminReqistrationController::class, 'register']);//2.tip
 Route::post('/admin/login', [AdminReqistrationController::class, 'login'])->name('admin.login.post');
 Route::post('/admin/logout', [AdminReqistrationController::class, 'logout']);
-Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');//1.tip
