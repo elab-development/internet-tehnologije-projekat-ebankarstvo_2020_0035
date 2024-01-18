@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Transaction.css";
 
-const TransactionsPerPage = 10;
-
 const AllTransactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
@@ -11,7 +9,7 @@ const AllTransactions = () => {
   const [filterDescription, setFilterDescription] = useState("");
 
   useEffect(() => {
-    // Simulate fetching transaction history from an API
+    // Simulira povlačenje istorije transakcija sa API-ja
 
     const fetchTransactions = async () => {
       try {
@@ -28,13 +26,15 @@ const AllTransactions = () => {
     fetchTransactions();
   }, []);
 
+  const TransactionsPerPage = 10;
+
   const indexOfLastTransaction = currentPage * TransactionsPerPage;
   const indexOfFirstTransaction = indexOfLastTransaction - TransactionsPerPage;
   const currentTransactions = filteredTransactions.slice(
     indexOfFirstTransaction,
     indexOfLastTransaction
   );
-
+  //Ažurira stranicu kada kliknemo dugme za paginaciju.
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -48,7 +48,7 @@ const AllTransactions = () => {
     );
 
     setFilteredTransactions(filtered);
-    setCurrentPage(1); // Reset to the first page when the filter changes
+    setCurrentPage(1); // Resetuje stranicu kada se filter promeni
   };
 
   return (
@@ -65,7 +65,6 @@ const AllTransactions = () => {
       </div>
 
       <div className="filter">
-        {/* Description filter input */}
         <label>
           Filter by name:
           <input

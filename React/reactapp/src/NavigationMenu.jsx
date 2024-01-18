@@ -9,7 +9,7 @@ const NavigationMenu = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
 
   const handleNavCollapse = () => {
-    setIsNavCollapsed(!isNavCollapsed);
+    setIsNavCollapsed(!isNavCollapsed); //Prati da li je meni proširen ili ne
   };
 
   const navigate = useNavigate();
