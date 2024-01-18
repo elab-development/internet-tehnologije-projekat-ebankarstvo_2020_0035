@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,10 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-    
-        \App\Models\User::truncate();
-        \App\Models\Account::truncate();
+        
         \App\Models\Transaction::truncate();
+        \App\Models\Account::truncate();
+        \App\Models\User::truncate();
         \App\Models\Category::truncate();
 
         \App\Models\Transaction::factory(3)->create();

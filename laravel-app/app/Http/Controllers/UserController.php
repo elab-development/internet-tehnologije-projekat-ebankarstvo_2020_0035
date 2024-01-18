@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Transaction;
+use App\Models\Account;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function authenticatedUser()
     {
-        $users=User::all();
-        return $users;
+    $user = auth()->user();
+
+    // Load related accounts for the user
+    $accounts = $user->accounts;
+
+    // Optionally, you can use Laravel Resources to format the response
+    return new UserResource($user);
     }
 
     /**

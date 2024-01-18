@@ -14,10 +14,11 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        //uopste mi ne treba token za register
         // Validation rules for registration
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
 
@@ -27,14 +28,14 @@ class AuthController extends Controller
         }
 
         // Create a new admin
-        $admin = Admin::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         // You can customize the response as needed
-        return response()->json(['message' => 'Admin registered successfully', 'admin' => $admin], 201);
+        return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
     }
     public function login(Request $request) {//ne postoji u bazi kao
         if(!Auth::attempt($request->only('email','password')))//Auth se koristi za pristup autentif korisniku

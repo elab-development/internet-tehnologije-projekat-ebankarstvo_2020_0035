@@ -13,12 +13,16 @@ class Account extends Model
     protected $fillable =['title', 'number', 'type', 'balance','user_id'];
     protected $guarded = ['id','number','type','balance'];
 
-    public function users (){
+    public function user (){
         return $this->belongsTo(User::class);
     }
 
     public function transactions (){
         return $this->hasMany(Transaction::class);
+    }
+    public function receivedTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'recipient_id');
     }
 }
 

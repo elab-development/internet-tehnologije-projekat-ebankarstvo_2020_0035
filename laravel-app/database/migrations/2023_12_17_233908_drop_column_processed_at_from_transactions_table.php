@@ -20,10 +20,10 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->addColumn('processed_at');
+            $table->timestamp('processed_at')->nullable();
         });
     }
 };

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id()->unique();
-            $table->string('title');
+            $table->string('title')->default('Transakcija');
             $table->float('amount');
             $table->foreignId('account_id');
             $table->foreignId('category_id');
-
+            $table->foreignId('recipient_id')->nullable();;
 
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();

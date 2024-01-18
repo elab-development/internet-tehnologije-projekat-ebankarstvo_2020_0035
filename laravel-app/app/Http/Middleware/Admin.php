@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Auth;
-
+use Illuminate\Support\Facades\Log;
 
 
 class Admin 
@@ -17,13 +17,22 @@ class Admin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        if(!Auth::guard('admin')->check()){
-           
-            return redirect('api/admin/login');//uspeo redirect
-            //return response()->json(['error' => 'You are not an admin'], 401);
+        $token = $request->bearerToken();
+
+        if ($token) {
+            // Log token information
+            Log::info("Admin Token: $token");
+
+            if (Auth::guard('admin')->check()) {
+                return $next($request);
+            }
         }
-        return $next($request);
+
+        // Log unauthorized attempts
+        Log::warning('Unauthorized Admin Access');
+
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 }
