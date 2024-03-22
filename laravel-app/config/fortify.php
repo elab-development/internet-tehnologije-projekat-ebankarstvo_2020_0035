@@ -153,6 +153,7 @@ return [
         Features::twoFactorAuthentication([
             'confirm' => true,
             'confirmPassword' => true,
+            'reset-passwords' => true,
             // 'window' => 0,
         ]),
     ],

@@ -7,9 +7,15 @@ use App\Models\Transaction;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
-
+use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+
+        return UserResource::collection($users);
+    }
     public function authenticatedUser()
     {
     $user = auth()->user();
@@ -34,7 +40,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->processUser($request, new User());
     }
 
     /**
@@ -62,7 +68,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        return $this->processUser($request, $user);
     }
 
     /**
@@ -70,6 +76,28 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted successfully']);
+    }
+    private function processUser(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:15',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'required|string|min:6',
+            
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $user->fill($request->only(['name', 'email', 'password']));
+        $user->save();
+
+        $action = $user->wasRecentlyCreated ? 'created' : 'updated';
+
+        return response()->json(['message' => "User {$action} successfully", new UserResource($user)]);
     }
 }

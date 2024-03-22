@@ -10,7 +10,7 @@ class Account extends Model
 {
     use HasFactory;
 
-    protected $fillable =['title', 'number', 'type', 'balance','user_id'];
+    protected $fillable =['title', 'number', 'type', 'balance','user_id','role'];
     protected $guarded = ['id','number','type','balance'];
 
     public function user (){
