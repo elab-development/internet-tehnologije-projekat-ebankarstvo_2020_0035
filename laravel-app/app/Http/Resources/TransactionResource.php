@@ -20,7 +20,7 @@ class TransactionResource extends JsonResource
         'id'=>$this->resource->id,
         'title'=>$this->resource->title,
         'amount'=>$this->resource->amount,
-        'account'=>$this->resource->account,
+        //'account'=>$this->resource->account,
         'category'=>$this->resource->category
         
         ];

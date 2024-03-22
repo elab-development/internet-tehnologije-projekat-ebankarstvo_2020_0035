@@ -56,6 +56,13 @@ return [
             //     'timeout' => 5,
             // ],
         ],
+        'stream' => [
+            'ssl' =>[  
+            'allow_self_signed'=>true,
+            'verify_peer'=>false,
+            'verify_peer_name'=>true,
+             ],
+        ],
 
         'postmark' => [
             'transport' => 'postmark',
@@ -100,8 +107,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'demimicke5@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'LARAVEL'),
     ],
 
     /*
