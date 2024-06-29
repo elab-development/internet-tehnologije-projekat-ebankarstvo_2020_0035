@@ -30,28 +30,17 @@ class TransferController extends Controller
         // Get the ID of the first account
         $fromAccountId = $userAccounts->first()->id;
 
-        // Begin a database transaction
         DB::beginTransaction();
 
         try {
-            // Debit from the source account (first account of the user)
-            $debitTransaction = new Transaction();
-            $debitTransaction->account_id = $fromAccountId;
-            $debitTransaction->amount = $request->amount;
-            $debitTransaction->category_id = $request->category;
-            $debitTransaction->recipient_id =$request->to_account_id ;
-            $debitTransaction->save();
+            // Create a single transaction for both debit and credit
+            $transaction = new Transaction();
+            $transaction->account_id = $fromAccountId; // Sender
+            $transaction->recipient_id = $request->to_account_id; // Recipient
+            $transaction->amount = $request->amount;
+            $transaction->category_id = $request->category;
+            $transaction->save();
 
-            // Credit to the destination account
-            $creditTransaction = new Transaction();
-            $creditTransaction->account_id = $request->to_account_id;
-            $creditTransaction->amount = $request->amount;
-            $creditTransaction->category_id =  $request->category;
-            
-            $creditTransaction->save();
-
-            $this->updateAccountBalance($fromAccountId, -$request->amount);
-            $this->updateAccountBalance($request->to_account_id, $request->amount);
             // Commit the transaction
             DB::commit();
 
@@ -63,18 +52,5 @@ class TransferController extends Controller
             return response()->json(['message' => 'Transfer failed', 'error' => $e->getMessage()], 500);
         }
     }
-    private function updateAccountBalance($accountId, $amount)
-{
-    // Update the account balance based on the given amount
-    $account = Account::find($accountId);
-
-    // Check if the amount is positive or negative to determine debit or credit
-    if ($amount >= 0) {
-        $account->balance += $amount; // Credit
-    } else {
-        $account->balance -= abs($amount); // Debit (negative amount)
-    }
-
-    $account->save();
-}
+   
 }
