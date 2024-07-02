@@ -48,6 +48,11 @@ const NavigationMenu = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/exchange">
+                Exchange
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to="/statistics">
                 Statistics
               </Link>

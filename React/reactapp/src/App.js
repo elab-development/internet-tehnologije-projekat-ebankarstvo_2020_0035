@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Transfer from "./Transfer";
 import Dashboard from "./Dashboard";
 import Statistics from "./Statistics";
+import Exchange from "./Exchange";
 import Login from "./Login";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/transfer" element={<Transfer />} />
+          <Route path="/exchange" element={<Exchange />} />
           <Route path="/statistics" element={<Statistics />} />
         </Routes>
       </BrowserRouter>

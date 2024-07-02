@@ -14,7 +14,7 @@ const AllTransactions = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await fetch("http://localhost:3001/transaction");
+        const response = await fetch("http://localhost:3001/transaction"); //json-server --watch example.json --port 3001
         const data = await response.json();
         setTransactions(data);
       } catch (error) {
@@ -69,7 +69,6 @@ const AllTransactions = () => {
             <option value="Transfers">Transfers</option>
             <option value="Monthly payments">Monthly payments</option>
             <option value="Payments">Payments</option>
-            {/* Add more categories as needed */}
           </select>
         </label>
       </div>
