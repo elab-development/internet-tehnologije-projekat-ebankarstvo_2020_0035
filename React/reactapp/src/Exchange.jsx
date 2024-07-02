@@ -1,43 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Freecurrencyapi from "@everapi/freecurrencyapi-js";
+import React, { useState } from "react";
+import useExchangeRates from "./useExchangeRates";
 import "./Exchange.css";
 
-const freecurrencyapi = new Freecurrencyapi(
-  "fca_live_P99y60SZB3XKJZjJyOBkxC0KUeeTimailk1LcaDY"
-);
-
 function Exchange() {
-  const [usdToEur, setUsdToEur] = useState(null);
-  const [eurToUsd, setEurToUsd] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
+  const { usdToEur, eurToUsd, loading, error } = useExchangeRates();
   const [usdAmount, setUsdAmount] = useState("");
   const [eurAmount, setEurAmount] = useState("");
   const [convertedToEur, setConvertedToEur] = useState(null);
   const [convertedToUsd, setConvertedToUsd] = useState(null);
-
-  useEffect(() => {
-    Promise.all([
-      freecurrencyapi.latest({
-        base_currency: "USD",
-        currencies: "EUR",
-      }),
-      freecurrencyapi.latest({
-        base_currency: "EUR",
-        currencies: "USD",
-      }),
-    ])
-      .then(([usdToEurResponse, eurToUsdResponse]) => {
-        setUsdToEur(usdToEurResponse.data.EUR);
-        setEurToUsd(eurToUsdResponse.data.USD);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
 
   const handleUsdToEur = (event) => {
     event.preventDefault();
