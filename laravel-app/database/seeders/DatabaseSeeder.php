@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+use Database\Seeders\CurrencyConversionRatesSeeder;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -35,5 +36,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Account::factory(2)->create([
             'user_id'=>$user->id
         ]);
+
+        $this->call(CurrencyConversionRatesSeeder::class);
     }
 }

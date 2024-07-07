@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('/users', [UserController::class, 'index']); //  /users
 Route::get('/users/{id}', [UserController::class, 'show']); //   /users/id
+Route::post('/transfer', [TransferController::class, 'transfer']);

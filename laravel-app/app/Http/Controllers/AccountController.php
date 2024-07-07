@@ -22,7 +22,7 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             "title" => "required|string|max:255",
             "number" => "required|string|unique:accounts",
-            "type" => "required|string|in:tekuci,devizni",
+            "type" => "required|string|in:tekuci-eur,devizni-usd",
             "balance" => "numeric",
             "user_id" => "required|exists:users,id",
         ]);
@@ -64,7 +64,7 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             "title" => "required|string|max:255",
             "number" => "required|string|unique:accounts,number," . $account->id,
-            "type" => "required|string|in:dinarski,devizni",
+            "type" => "required|string|in:tekuci-eur,devizni-usd",
             "balance" => "numeric",
             "user_id" => "required|exists:users,id",
         ]);

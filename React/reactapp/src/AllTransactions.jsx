@@ -21,7 +21,7 @@ const AllTransactions = () => {
         console.error("Error fetching transactions:", error);
       }
     };
-
+    // Call the fetchTransactions function when the component mounts
     fetchTransactions();
   }, []);
 
@@ -36,7 +36,7 @@ const AllTransactions = () => {
     });
 
     setFilteredTransactions(filtered);
-    setCurrentPage(1); // Reset page when filters change
+    setCurrentPage(1); // Resetuje stranu kada se filter promeni
   }, [transactions, filterName, filterCategory]);
 
   const handlePageChange = (pageNumber) => {
