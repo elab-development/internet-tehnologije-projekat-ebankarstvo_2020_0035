@@ -12,10 +12,10 @@ class ComposerStaticInitcdd31fb0ac86f619febf70456e8f3409
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
@@ -367,8 +367,8 @@ class ComposerStaticInitcdd31fb0ac86f619febf70456e8f3409
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -3314,6 +3314,7 @@ class ComposerStaticInitcdd31fb0ac86f619febf70456e8f3409
         'Laravel\\Fortify\\Actions\\GenerateNewRecoveryCodes' => __DIR__ . '/..' . '/laravel/fortify/src/Actions/GenerateNewRecoveryCodes.php',
         'Laravel\\Fortify\\Actions\\PrepareAuthenticatedSession' => __DIR__ . '/..' . '/laravel/fortify/src/Actions/PrepareAuthenticatedSession.php',
         'Laravel\\Fortify\\Actions\\RedirectIfTwoFactorAuthenticatable' => __DIR__ . '/..' . '/laravel/fortify/src/Actions/RedirectIfTwoFactorAuthenticatable.php',
+        'Laravel\\Fortify\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/fortify/src/Console/InstallCommand.php',
         'Laravel\\Fortify\\Contracts\\ConfirmPasswordViewResponse' => __DIR__ . '/..' . '/laravel/fortify/src/Contracts/ConfirmPasswordViewResponse.php',
         'Laravel\\Fortify\\Contracts\\CreatesNewUsers' => __DIR__ . '/..' . '/laravel/fortify/src/Contracts/CreatesNewUsers.php',
         'Laravel\\Fortify\\Contracts\\EmailVerificationNotificationSentResponse' => __DIR__ . '/..' . '/laravel/fortify/src/Contracts/EmailVerificationNotificationSentResponse.php',

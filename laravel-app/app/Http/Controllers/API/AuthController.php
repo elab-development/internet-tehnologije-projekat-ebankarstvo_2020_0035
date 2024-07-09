@@ -48,7 +48,7 @@ class AuthController extends Controller
         //$user=User::where('email',$request['email'])->firstOrFail();//prvi na koji naketis vrati
         //treba da dobijemo novi token sa kojim mozemo da se krecemo dalje kroz str
         $token=$user->createToken('auth_token')->plainTextToken;
-        return response()->json(['message'=>'Welcome, '.$user->name,'access_token'=>$token,'token_type'=>'Bearer']);
+        return response()->json(['message'=>'Welcome, '.$user->name,'access_token'=>$token,'token_type'=>'Bearer', 'role'=>$user->role]);
     }
     public function logout(Request $request)
     {

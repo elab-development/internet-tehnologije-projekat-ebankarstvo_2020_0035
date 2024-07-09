@@ -6,6 +6,9 @@ import Transfer from "./Transfer";
 import Dashboard from "./Dashboard";
 import Statistics from "./Statistics";
 import Login from "./Login";
+import Register from "./Register";
+import ForgotPassword from "./ForgotPassword";
+import AdminPage from "./AdminPage";
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/transfer" element={<Transfer />} />
           <Route path="/statistics" element={<Statistics />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/adminPage" element={<AdminPage />} />
         </Routes>
       </BrowserRouter>
     </div>

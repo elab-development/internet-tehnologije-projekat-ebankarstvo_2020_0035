@@ -20,9 +20,10 @@ class TransactionResource extends JsonResource
         'id'=>$this->resource->id,
         'title'=>$this->resource->title,
         'amount'=>$this->resource->amount,
-        //'account'=>$this->resource->account,
-        'category'=>$this->resource->category
-        
+        'account'=>$this->resource->account,
+        'category'=>$this->resource->category,
+        'recipient_id'=>$this->resource->recipient_id,
+        'created_at'=>$this->resource->created_at
         ];
     }
 }

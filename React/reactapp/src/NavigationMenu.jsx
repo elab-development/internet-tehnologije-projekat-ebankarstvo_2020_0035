@@ -4,25 +4,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "./Icon.css";
+import axios from "axios";
 
 const NavigationMenu = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-
   const handleNavCollapse = () => {
     setIsNavCollapsed(!isNavCollapsed); //Prati da li je meni proširen ili ne
   };
 
   const navigate = useNavigate();
   function handleLogout(event) {
+    const config = {
+      method: "post",
+      url: "api/logout",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("auth_token"),
+      },
+    };
     event.preventDefault();
-
+    sessionStorage.removeItem("auth_token");
+    axios(config);
     navigate("/");
   }
 
   return (
-    <nav className="navbar navbar-expand-lg bg-warning fixed-top py-0">
+    <nav
+      className="navbar navbar-expand-lg bg-warning fixed-top py-0"
+      style={{ position: "relative" }}
+    >
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/dashboard">
+        <Link
+          className="navbar-brand"
+          to={sessionStorage.getItem("auth_token") ? "/dashboard" : "/"}
+        >
           Home
         </Link>
         <button
@@ -34,6 +48,7 @@ const NavigationMenu = () => {
           aria-expanded={!isNavCollapsed}
           aria-label="Toggle navigation"
           onClick={handleNavCollapse}
+          disabled={sessionStorage.getItem("auth_token") ? false : true}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -42,16 +57,27 @@ const NavigationMenu = () => {
           id="navbarNav"
         >
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/transfer">
-                Transfer
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/statistics">
-                Statistics
-              </Link>
-            </li>
+            {sessionStorage.getItem("auth_token") && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/transfer">
+                  Transfer
+                </Link>
+              </li>
+            )}
+            {sessionStorage.getItem("auth_token") && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/statistics">
+                  Statistics
+                </Link>
+              </li>
+            )}
+            {sessionStorage.getItem("role") === "admin" && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/adminPage">
+                  Admin Page
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
         <div className="social-icons">
@@ -73,7 +99,9 @@ const NavigationMenu = () => {
           </a>
         </div>
         <div>
-          <button onClick={handleLogout}>Logout</button>
+          {sessionStorage.getItem("auth_token") && (
+            <button onClick={handleLogout}>Logout</button>
+          )}
         </div>
       </div>
     </nav>

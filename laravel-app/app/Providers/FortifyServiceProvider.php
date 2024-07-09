@@ -52,5 +52,14 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             return 'Neki view';
         });
+        Fortify::registerView(function () {
+            return ;
+        });
+        Fortify::requestPasswordResetLinkView(function () {
+            return ;
+        });
+        Fortify::verifyEmailView(function () {
+            return ;
+        });
     }
 }

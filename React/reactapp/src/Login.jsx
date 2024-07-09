@@ -2,26 +2,42 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(true);
 
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
+
+  const handleForgotPassword = () => {
+    navigate("/forgotPassword");
+  };
+
   function handleSubmit(event) {
     event.preventDefault();
-
-    const expectedUsername = "admin";
-    const expectedPassword = "admin";
-
-    if (username === expectedUsername && password === expectedPassword) {
-      // Ukoliko je uspešno, prebaci na dashboard
-      navigate("/dashboard");
-    } else {
-      // Ukoliko nije, postavi isFormValid na false
-      setIsFormValid(false);
-    }
+    axios
+      .post("api/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status) {
+          sessionStorage.setItem("auth_token", res.data.access_token);
+          sessionStorage.setItem("role", res.data.role);
+          navigate("/dashboard");
+        }
+      })
+      .catch(() => {
+        // Ukoliko nije, postavi isFormValid na false
+        setIsFormValid(false);
+        console.log(email, password);
+      });
   }
 
   return (
@@ -36,8 +52,8 @@ function Login() {
             <input
               type="text"
               className={`form-control ${!isFormValid ? "is-invalid" : ""}`}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             {!isFormValid && (
@@ -65,6 +81,17 @@ function Login() {
           >
             Log in
           </button>
+          <div className="register-div">Don't have an account?</div>
+          <button
+            type="submit"
+            className="btn d-block btn-danger mx-auto mt-2"
+            onClick={handleRegisterClick}
+          >
+            Register
+          </button>
+          <div className="forgot-div" onClick={handleForgotPassword}>
+            Forgot password?
+          </div>
         </form>
       </div>
     </div>

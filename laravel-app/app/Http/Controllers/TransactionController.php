@@ -6,6 +6,9 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Resources\TransactionResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log; 
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 class TransactionController extends Controller
 {
     public function index(){
@@ -56,4 +59,73 @@ class TransactionController extends Controller
     
         return response()->json(['message' => "Transaction {$action} successfully", new TransactionResource($transaction)]);
     }
+    
+    public function getAllTransactions($accountId)
+    {
+        try {
+            $account = auth()->user()->accounts()->find($accountId);
+
+            if (!$account) {
+                return response()->json(['error' => 'Unauthorized access to account'], 403);
+            }
+            $transactions = DB::table('transactions')
+            ->select(
+                'transactions.*',
+                'sender_users.name as sender_name',
+                'recipient_users.name as recipient_name'
+            )
+            ->join('accounts as sender_accounts', 'transactions.account_id', '=', 'sender_accounts.id')
+            ->join('users as sender_users', 'sender_accounts.user_id', '=', 'sender_users.id')
+            ->join('accounts as recipient_accounts', 'transactions.recipient_id', '=', 'recipient_accounts.id')
+            ->join('users as recipient_users', 'recipient_accounts.user_id', '=', 'recipient_users.id')
+            ->where(function ($query) use ($accountId) {
+                $query->where('sender_accounts.id', $accountId)
+                      ->orWhere('recipient_accounts.id', $accountId);
+            })
+            ->paginate(3);
+        Log::info($transactions->toArray());
+            return response()->json($transactions);
+
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch transactions: ' . $e->getMessage(), [
+                'exception' => $e,
+            ]);
+            return response()->json(['error' => 'Failed to fetch transactions'], 500);
+        }
+    }
+    public function transactionsBetweenDates(Request $request)
+    {
+        try {
+        $request->validate([
+            'account_id' => [
+                'required',
+                Rule::exists('accounts', 'id')->where(function ($query) use ($request) {
+                    $query->where('user_id', auth()->id())
+                          ->where('id', $request->account_id);
+                }),
+            ],
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        // Retrieve validated input
+        $account_id = $request->input('account_id');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        // Query to fetch transactions between dates
+        $transactions = Transaction::where('account_id', $account_id)
+        ->whereBetween('created_at', [$start_date, $end_date])
+        ->get();
+        
+        // Return JSON response
+        return response()->json($transactions);
+        } catch (\Exception $e) {
+        // Handle exceptions if any
+        Log::info('Error occurred: ' . $e->getMessage());
+            Log::error('Error occurred: ' . $e->getMessage());
+            return response()->json(['error' => 'An error occurred while processing your request'], 500);
+        }
+    }
+
 }

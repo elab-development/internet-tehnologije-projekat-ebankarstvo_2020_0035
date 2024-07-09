@@ -2726,6 +2726,7 @@ return array(
     'Laravel\\Fortify\\Actions\\GenerateNewRecoveryCodes' => $vendorDir . '/laravel/fortify/src/Actions/GenerateNewRecoveryCodes.php',
     'Laravel\\Fortify\\Actions\\PrepareAuthenticatedSession' => $vendorDir . '/laravel/fortify/src/Actions/PrepareAuthenticatedSession.php',
     'Laravel\\Fortify\\Actions\\RedirectIfTwoFactorAuthenticatable' => $vendorDir . '/laravel/fortify/src/Actions/RedirectIfTwoFactorAuthenticatable.php',
+    'Laravel\\Fortify\\Console\\InstallCommand' => $vendorDir . '/laravel/fortify/src/Console/InstallCommand.php',
     'Laravel\\Fortify\\Contracts\\ConfirmPasswordViewResponse' => $vendorDir . '/laravel/fortify/src/Contracts/ConfirmPasswordViewResponse.php',
     'Laravel\\Fortify\\Contracts\\CreatesNewUsers' => $vendorDir . '/laravel/fortify/src/Contracts/CreatesNewUsers.php',
     'Laravel\\Fortify\\Contracts\\EmailVerificationNotificationSentResponse' => $vendorDir . '/laravel/fortify/src/Contracts/EmailVerificationNotificationSentResponse.php',
