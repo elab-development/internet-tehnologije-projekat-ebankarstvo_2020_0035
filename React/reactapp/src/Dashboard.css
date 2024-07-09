@@ -1,0 +1,28 @@
+.balance-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 750px;
+}
+
+.container {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.transactions-div {
+  width: 1000px;
+}

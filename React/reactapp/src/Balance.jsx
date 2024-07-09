@@ -1,11 +1,10 @@
 import React from "react";
 import "./Balance.css";
 
-const Balance = ({ name, amount }) => {
+const Balance = ({ name, amount, onClick }) => {
   return (
-    <div className="balance-container">
+    <div className="balance-container" onClick={onClick}>
       <div className="name">{name}</div>
-
       <div>
         <div className="div2">
           <h5>Balance</h5>

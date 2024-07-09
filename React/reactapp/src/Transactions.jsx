@@ -1,25 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Transaction from "./Transaction";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CiShoppingCart, CiUser, CiDumbbell } from "react-icons/ci";
-function Transactions() {
-  const transactionsData = [
-    { amount: "$100", description: "Purchase at Store", icon: CiShoppingCart },
-    { amount: "$50", description: "Market", icon: CiShoppingCart },
-    { amount: "$30", description: "Milica Markovic", icon: CiUser },
-    { amount: "$40", description: "Gym", icon: CiDumbbell },
-  ];
+import axios from "axios";
+function Transactions({ account, name }) {
+  const [transactions, setTransacations] = useState([]);
+  const [pagination, setPagination] = useState([]);
+  const [page, setPage] = useState(1);
+
+  const config = {
+    method: "get",
+    url: "api/accounts/transactions/" + account + "?page=" + page,
+    headers: {
+      Authorization: "Bearer " + sessionStorage.getItem("auth_token"),
+    },
+  };
+
+  const loadData = async () => {
+    try {
+      const response = await axios(config);
+      setTransacations(response.data.data);
+      setPagination(response.data);
+      console.log(response.data);
+      console.log("gas");
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    loadData();
+  }, [account, page]);
+
+  const paginatePage = async (link) => {
+    console.log(link);
+    const page = new URL(link);
+    setPage(page.searchParams.get("page"));
+    loadData();
+  };
   return (
     <div className="divTrans text-center ">
-      <h5 className="transTitle d-felx ">Recent Transactions</h5>
-      {transactionsData.map((transaction, index, icon) => (
-        <Transaction
-          key={index}
-          amount={transaction.amount}
-          description={transaction.description}
-          icon={transaction.icon}
-        />
-      ))}
+      {transactions ? (
+        <div>
+          <h5 className="transTitle d-flex">Recent Transactions</h5>
+          {transactions.map((transaction, index) => (
+            <Transaction
+              key={index}
+              transaction={transaction}
+              isSender={transaction.sender_name === name}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>LOADING</p>
+      )}
+      <nav aria-label="Page navigation example">
+        <ul className="pagination">
+          {pagination.links?.map((link) => (
+            <li
+              onClick={() => paginatePage(link.url)}
+              className={`page-item ${link.active ? "active" : ""}`}
+            >
+              <a className="page-link">
+                {link.label.replace("&laquo;", "<<").replace("&raquo;", ">>")}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 }

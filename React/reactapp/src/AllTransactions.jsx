@@ -16,14 +16,14 @@ const AllTransactions = () => {
       try {
         const response = await fetch("http://localhost:3001/transaction"); //json-server --watch example.json --port 3001
         const data = await response.json();
-        setTransactions(data);
+        setTransactions(data.data); // Set transactions array from API response
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
     };
     // Call the fetchTransactions function when the component mounts
     fetchTransactions();
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     const filtered = transactions.filter((transaction) => {
@@ -51,6 +51,14 @@ const AllTransactions = () => {
     setFilterCategory(event.target.value);
   };
 
+  // Calculate current transactions to display based on pagination
+  const indexOfLastTransaction = currentPage * TransactionsPerPage;
+  const indexOfFirstTransaction = indexOfLastTransaction - TransactionsPerPage;
+  const currentTransactions = filteredTransactions.slice(
+    indexOfFirstTransaction,
+    indexOfLastTransaction
+  );
+
   return (
     <div>
       <div className="filter">
@@ -76,16 +84,11 @@ const AllTransactions = () => {
       <div className="allTrans">
         <ul>
           <h2 className="history">Transaction History</h2>
-          {filteredTransactions
-            .slice(
-              (currentPage - 1) * TransactionsPerPage,
-              currentPage * TransactionsPerPage
-            )
-            .map((transaction) => (
-              <li key={transaction.id}>
-                {transaction.description} {transaction.amount}
-              </li>
-            ))}
+          {currentTransactions.map((transaction) => (
+            <li key={transaction.id}>
+              {transaction.description} {transaction.amount}
+            </li>
+          ))}
         </ul>
       </div>
 

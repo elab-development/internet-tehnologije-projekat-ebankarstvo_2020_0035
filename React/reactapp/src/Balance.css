@@ -1,5 +1,6 @@
 .balance-container {
-  height: 30vh;
+  position: relative;
+  height: 200px;
   border: 1px solid #8a6e6e; /* Example border styling */
   display: flex;
   flex-direction: column;
@@ -7,6 +8,13 @@
   justify-content: center;
   gap: 40px;
   background-color: #413a4b71;
+  width: 600px;
+  cursor: pointer;
+  z-index: 2;
+
+  &:hover {
+    background-color: #413b4b70;
+  }
 }
 .balance-amount {
   text-align: center;

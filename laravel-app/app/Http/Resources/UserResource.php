@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'name'=>$this->resource->name,
             'email'=>$this->resource->email,
             'password'=>$this->resource->password,
+            'role'=>$this->resource->role,
             'accounts' => AccountResource::collection($this->resource['accounts']),
             
             ];

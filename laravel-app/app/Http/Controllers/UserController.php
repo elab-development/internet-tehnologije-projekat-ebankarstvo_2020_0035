@@ -21,7 +21,7 @@ class UserController extends Controller
     $user = auth()->user();
 
     // Load related accounts for the user
-    $accounts = $user->accounts;
+    //$accounts = $user->accounts;
 
     // Optionally, you can use Laravel Resources to format the response
     return new UserResource($user);
@@ -99,5 +99,33 @@ class UserController extends Controller
         $action = $user->wasRecentlyCreated ? 'created' : 'updated';
 
         return response()->json(['message' => "User {$action} successfully", new UserResource($user)]);
+    }
+    public function getById($id)
+    {
+        try {
+            $user = User::findOrFail($id); // Find user by ID
+
+            // Return only the 'name' field
+            return response()->json(['name' => $user->name]);
+
+        } catch (\Exception $e) {
+            // Handle not found exception or other errors
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    }
+    public function getAccountsForUser()
+    {
+        // Get the currently authenticated user
+        $user = auth()->user();
+
+        // Check if user is authenticated
+        if (!$user) {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
+
+        // Fetch accounts associated with the authenticated user using eager loading
+        $accounts = $user->accounts()->get();
+
+        return response()->json(['accounts' => $accounts], 200);
     }
 }

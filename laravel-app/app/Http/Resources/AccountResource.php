@@ -23,7 +23,7 @@ class AccountResource extends JsonResource
             //'user'=>$this->resource->user
             //'id' => $this->id,
             'name' => $this->name,
-            'transactions' => TransactionResource::collection($this->transactions), 
+            #'transactions' => TransactionResource::collection($this->transactions), 
         ];
     }
 }
