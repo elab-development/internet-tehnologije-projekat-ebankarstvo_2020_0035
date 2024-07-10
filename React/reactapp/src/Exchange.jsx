@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useExchangeRates from "./useExchangeRates";
 import "./Exchange.css";
+import TransferForm from "./TransferForm";
 
 function Exchange() {
   const { usdToEur, eurToUsd, loading, error } = useExchangeRates();
@@ -80,6 +81,7 @@ function Exchange() {
           </p>
         )}
       </div>
+      <TransferForm />
     </div>
   );
 }

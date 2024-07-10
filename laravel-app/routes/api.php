@@ -17,7 +17,7 @@ use App\Http\Controllers\AdminReqistrationController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\TransferController;
-
+use App\Http\Controllers\TransferExchangeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +117,13 @@ Route::post('/reset-password', function (Request $request) {
     }
     })->name('password.update');
 Route::get('/transactions/{account_id}/{start_date}/{end_date}', [TransactionController::class, 'transactionsBetweenDates']);
+
+
+Route::get('/transfers', [TransferExchangeController::class, 'index']);
+Route::post('/transfers', [TransferExchangeController::class, 'store']);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/transferexch', [TransferExchangeController::class, 'transferexch']);
+});
 //Route::post('/admin/register', [AdminReqistrationController::class, 'register']);//2.tip
 //Route::post('/admin/login', [AdminReqistrationController::class, 'login'])->name('admin.login.post');
 //Route::post('/admin/logout', [AdminReqistrationController::class, 'logout']);
