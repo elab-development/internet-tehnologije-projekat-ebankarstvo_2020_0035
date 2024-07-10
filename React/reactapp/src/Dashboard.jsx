@@ -54,7 +54,7 @@ function Dashboard() {
           <p className="header">Welcome {user?.name}</p>
         )}
 
-        <div>
+        <div className="balance-div">
           {isLoading ? (
             <div
               class="spinner-border text-secondary"
@@ -76,7 +76,7 @@ function Dashboard() {
             </div>
           )}
         </div>
-        <div className="transactions">
+        <div className="transactions-div">
           {isLoading ? (
             <div
               class="spinner-border text-secondary"

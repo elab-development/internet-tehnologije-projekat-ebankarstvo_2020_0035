@@ -68,7 +68,7 @@ function Statistics() {
     dayjs.extend(isBetween);
     setIsLoading(true);
     try {
-      const response = await axios(configQuarterly);
+      const response = await axios(configYearly);
       const finalArray = [["month", "expenses"]];
       const day = dayjs("2024-01-01");
       const months = [
@@ -144,6 +144,7 @@ function Statistics() {
       const fill = {};
       const finalArray = [["date", "expenses"]];
       response.data.map((res) => {
+        console.log(res);
         if (fill[dayjs(res.created_at).format("YYYY-MM-DD")] === undefined)
           fill[dayjs(res.created_at).format("YYYY-MM-DD")] = res.amount;
         else fill[dayjs(res.created_at).format("YYYY-MM-DD")] += res.amount;
@@ -178,6 +179,7 @@ function Statistics() {
     hAxis: { title: "Year", titleTextStyle: { color: "#333" } },
     vAxis: { minValue: 0 },
     chartArea: { width: "50%", height: "70%" },
+    colors: ["orange"],
   };
   return (
     <div className="container">

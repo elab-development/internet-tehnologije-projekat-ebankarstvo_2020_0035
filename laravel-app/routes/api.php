@@ -6,6 +6,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransactionController;
@@ -32,6 +33,7 @@ use App\Http\Controllers\TransferController;
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', [UserController::class, 'authenticatedUser']);
     Route::post('/transfer', [TransferController::class, 'transfer']);
+    Route::post('/transaction', [TransactionController::class, 'transaction']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/myAccounts', [UserController::class, 'getAccountsForUser']);
     #Route::get('/usersName/{id}', [UserController::class, 'getById'])->name('users.getById');

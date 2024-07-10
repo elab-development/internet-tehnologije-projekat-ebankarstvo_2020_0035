@@ -10,6 +10,7 @@
 .container {
   left: 0;
   right: 0;
+  top: 0;
   bottom: 0;
   position: relative;
   display: flex;
@@ -25,4 +26,9 @@
 
 .transactions-div {
   width: 1000px;
+}
+
+.balance-div {
+  padding-top: 200px;
+  position: relative;
 }

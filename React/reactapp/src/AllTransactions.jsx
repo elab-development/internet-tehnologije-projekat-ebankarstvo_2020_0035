@@ -44,10 +44,12 @@ const AllTransactions = () => {
   };
 
   const handleNameFilterChange = (event) => {
+    console.log(event.target.value);
     setFilterName(event.target.value);
   };
 
   const handleCategoryFilterChange = (event) => {
+    console.log(event.target.value);
     setFilterCategory(event.target.value);
   };
 
@@ -67,12 +69,15 @@ const AllTransactions = () => {
           <input
             type="text"
             value={filterName}
-            onChange={handleNameFilterChange}
+            onChange={(event) => handleNameFilterChange(event)}
           />
         </label>
         <label>
           Filter by category:
-          <select value={filterCategory} onChange={handleCategoryFilterChange}>
+          <select
+            value={filterCategory}
+            onChange={(event) => handleCategoryFilterChange(event)}
+          >
             <option value="All">All</option>
             <option value="Transfers">Transfers</option>
             <option value="Monthly payments">Monthly payments</option>

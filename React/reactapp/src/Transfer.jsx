@@ -23,7 +23,7 @@ function Transfer() {
 
   const configTransfer = {
     method: "post",
-    url: "api/transfer",
+    url: "api/transaction",
     headers: {
       Authorization: "Bearer " + sessionStorage.getItem("auth_token"),
     },
@@ -37,7 +37,7 @@ function Transfer() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    let response;
+    console.log(transfer);
     axios
       .request(configTransfer)
       .then((response) => {

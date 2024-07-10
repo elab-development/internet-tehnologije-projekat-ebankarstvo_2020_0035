@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Resources\TransactionResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Auth;
+use App\Models\Account;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 class TransactionController extends Controller
@@ -21,7 +23,51 @@ class TransactionController extends Controller
     {
         return $this->processTransaction($request, new Transaction());
     }
-    
+    public function transaction(Request $request)
+    { 
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'account_id' => 'required|exists:accounts,id,user_id,' . Auth::id(),
+            'number' => 'required|exists:accounts,number',
+            'amount' => 'required|numeric|min:0.01',
+            'category' => 'required|numeric|',
+        ]);
+        if ($validator->fails()) {
+            Log::debug('Validation failed for transfer request.', [
+                'errors' => $validator->errors()->toArray(),
+                'request' => $request->all(),
+            ]);
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+        
+        $toAccount = Account::where('number', $request->number)->first();
+       
+        DB::beginTransaction();
+        $id=$toAccount->id;
+        try {
+            // Create a single transaction for both debit and credit
+            $transaction = new Transaction();
+            $transaction->account_id = $request->account_id; // Sender
+            $transaction->recipient_id = $id; // Recipient
+            $transaction->amount = $request->amount;
+            $transaction->category_id = $request->category;
+            $transaction->save();
+
+            // Commit the transaction
+            DB::commit();
+
+            return response()->json(['message' => 'Transfer successful'], 200);
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of an exception
+            DB::rollback();
+            Log::debug('Transfer failed: ' . $e->getMessage(), [
+                'exception' => $e,
+                'request' => $request->all(),
+            ]);
+            return response()->json(['message' => 'Transfer failed', 'error' => $e->getMessage()], 500);
+            
+        }
+    }
     public function update(Request $request, Transaction $transaction)
     {
         return $this->processTransaction($request, $transaction);
@@ -68,7 +114,7 @@ class TransactionController extends Controller
             if (!$account) {
                 return response()->json(['error' => 'Unauthorized access to account'], 403);
             }
-            $transactions = DB::table('transactions')
+            $paginatedTransactions = DB::table('transactions')
             ->select(
                 'transactions.*',
                 'sender_users.name as sender_name',
@@ -83,8 +129,27 @@ class TransactionController extends Controller
                       ->orWhere('recipient_accounts.id', $accountId);
             })
             ->paginate(3);
-        Log::info($transactions->toArray());
-            return response()->json($transactions);
+            $allTransactions = DB::table('transactions')
+            ->select(
+            'transactions.*',
+            'sender_users.name as sender_name',
+            'recipient_users.name as recipient_name'
+            )
+            ->join('accounts as sender_accounts', 'transactions.account_id', '=', 'sender_accounts.id')
+            ->join('users as sender_users', 'sender_accounts.user_id', '=', 'sender_users.id')
+            ->join('accounts as recipient_accounts', 'transactions.recipient_id', '=', 'recipient_accounts.id')
+            ->join('users as recipient_users', 'recipient_accounts.user_id', '=', 'recipient_users.id')
+            ->where(function ($query) use ($accountId) {
+            $query->where('sender_accounts.id', $accountId)
+                ->orWhere('recipient_accounts.id', $accountId);
+            })
+            ->get();
+            Log::info($allTransactions->toArray());
+            return [
+                'paginatedTransactions' => $paginatedTransactions,
+                'allTransactions' => $allTransactions,
+            ];
+       
 
         } catch (\Exception $e) {
             Log::error('Failed to fetch transactions: ' . $e->getMessage(), [

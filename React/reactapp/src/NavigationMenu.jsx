@@ -5,6 +5,7 @@ import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "./Icon.css";
 import axios from "axios";
+import Exchange from "./Exchange";
 
 const NavigationMenu = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -28,10 +29,7 @@ const NavigationMenu = () => {
   }
 
   return (
-    <nav
-      className="navbar navbar-expand-lg bg-warning fixed-top py-0"
-      style={{ position: "relative" }}
-    >
+    <nav className="navbar navbar-expand-lg bg-warning relative-top py-0">
       <div className="container-fluid">
         <Link
           className="navbar-brand"
@@ -68,6 +66,13 @@ const NavigationMenu = () => {
               <li className="nav-item">
                 <Link className="nav-link" to="/statistics">
                   Statistics
+                </Link>
+              </li>
+            )}
+            {sessionStorage.getItem("auth_token") && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/exchange">
+                  Exchange
                 </Link>
               </li>
             )}
