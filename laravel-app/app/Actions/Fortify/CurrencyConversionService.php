@@ -16,9 +16,9 @@ class CurrencyConversionService
         $rates = $this->freeCurrencyApiService->getConversionRates();
 
         if ($from === 'usd' && $to === 'eur') {
-            return $amount * $rates['EUR'];
-        } elseif ($from === 'eur' && $to === 'usd') {
             return $amount / $rates['EUR'];
+        } elseif ($from === 'eur' && $to === 'usd') {
+            return $amount * $rates['EUR'];
         }
 
         return $amount;

@@ -4,8 +4,8 @@ namespace App\Actions\Fortify;
 
 use App\Models\Account;
 use App\Models\Transaction;
-use App\Models\Transfer;
 use Illuminate\Support\Facades\DB;
+
 
 class TransferService
 {
@@ -33,17 +33,6 @@ class TransferService
 
             $fromAccount->save();
             $toAccount->save();
-
-            // Log the transfer
-            Transfer::create([
-                'from_account_id' => $fromAccountId,
-                'to_account_id' => $toAccountId,
-                'amount' => $amount,
-                'converted_amount' => $convertedAmount,
-                'from_currency' => $fromCurrency,
-                'to_currency' => $toCurrency,
-                'status' => 'completed',
-            ]);
 
             // Log transactions
             Transaction::create([
