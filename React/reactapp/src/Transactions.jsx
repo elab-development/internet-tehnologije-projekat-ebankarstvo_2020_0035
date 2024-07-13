@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Transaction from "./Transaction";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+
 function Transactions({ account, name }) {
   const [allTransactions, setAllTransactions] = useState([]);
   const [transactions, setTransactions] = useState([]);
@@ -59,10 +60,6 @@ function Transactions({ account, name }) {
     setCurrentPage(1);
   }, [filterName, filterCategory]);
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
   const handleNameFilterChange = (event) => {
     console.log(allTransactions);
     setFilterName(event.target.value);
@@ -73,13 +70,6 @@ function Transactions({ account, name }) {
     console.log(event.target.value);
     setFilterCategory(parseInt(event.target.value));
   };
-
-  const indexOfLastTransaction = currentPage * TransactionsPerPage;
-  const indexOfFirstTransaction = indexOfLastTransaction - TransactionsPerPage;
-  const currentTransactions = filteredTransactions.slice(
-    indexOfFirstTransaction,
-    indexOfLastTransaction
-  );
 
   return (
     <div className="divTrans text-center ">

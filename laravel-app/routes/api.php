@@ -17,7 +17,6 @@ use App\Http\Controllers\AdminReqistrationController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\TransferController;
-use App\Http\Controllers\TransferExchangeController;
 
 /*
 |--------------------------------------------------------------------------

@@ -40,6 +40,6 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user->id,
         ]);
 
-        $this->call(CurrencyConversionRatesSeeder::class);
+       // $this->call(CurrencyConversionRatesSeeder::class);
     }
 }

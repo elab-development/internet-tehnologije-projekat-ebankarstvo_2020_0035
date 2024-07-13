@@ -5,7 +5,6 @@ import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "./Icon.css";
 import axios from "axios";
-import Exchange from "./Exchange";
 
 const NavigationMenu = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -24,6 +23,7 @@ const NavigationMenu = () => {
     };
     event.preventDefault();
     sessionStorage.removeItem("auth_token");
+    sessionStorage.removeItem("role");
     axios(config);
     navigate("/");
   }

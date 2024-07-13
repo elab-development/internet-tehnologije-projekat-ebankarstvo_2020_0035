@@ -37,17 +37,17 @@ class TransferService
             // Log transactions
             Transaction::create([
                 'title' => 'Transfer',
-                'amount' => -$amount,
+                'amount' => $amount,
                 'account_id' => $fromAccountId,
                 'recipient_id' => $toAccountId,
             ]);
 
-            Transaction::create([
+            /*Transaction::create([
                 'title' => 'Transfer',
                 'amount' => $convertedAmount,
                 'account_id' => $toAccountId,
                 'recipient_id' => $fromAccountId,
-            ]);
+            ]);*/
         });
     }
 }
