@@ -14,7 +14,7 @@ function Transactions({ account, name }) {
 
   const config = {
     method: "get",
-    url: "api/accounts/transactions/" + account + "?page=" + page,
+    url: "api/accounts/" + account + "/transactions/?page=" + page,
     headers: {
       Authorization: "Bearer " + sessionStorage.getItem("auth_token"),
     },
@@ -59,9 +59,9 @@ function Transactions({ account, name }) {
     setCurrentPage(1);
   }, [filterName, filterCategory]);
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  //const handlePageChange = (pageNumber) => {
+  //  setCurrentPage(pageNumber);
+  //};
 
   const handleNameFilterChange = (event) => {
     console.log(allTransactions);
@@ -73,13 +73,6 @@ function Transactions({ account, name }) {
     console.log(event.target.value);
     setFilterCategory(parseInt(event.target.value));
   };
-
-  const indexOfLastTransaction = currentPage * TransactionsPerPage;
-  const indexOfFirstTransaction = indexOfLastTransaction - TransactionsPerPage;
-  const currentTransactions = filteredTransactions.slice(
-    indexOfFirstTransaction,
-    indexOfLastTransaction
-  );
 
   return (
     <div className="divTrans text-center ">

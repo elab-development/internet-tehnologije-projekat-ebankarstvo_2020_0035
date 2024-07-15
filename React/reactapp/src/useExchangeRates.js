@@ -16,14 +16,16 @@ const useExchangeRates = () => {
   useEffect(() => {
     Promise.all([
       freecurrencyapi.latest({
+        //request
         base_currency: "USD",
         currencies: "EUR",
       }),
       freecurrencyapi.latest({
+        //request
         base_currency: "EUR",
         currencies: "USD",
       }),
-    ])
+    ]) //ako nije pukao jedan od njih
       .then(([usdToEurResponse, eurToUsdResponse]) => {
         setUsdToEur(usdToEurResponse.data.EUR);
         setEurToUsd(eurToUsdResponse.data.USD);

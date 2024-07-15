@@ -81,7 +81,6 @@ function Exchange() {
           </p>
         )}
       </div>
-      <TransferForm />
     </div>
   );
 }

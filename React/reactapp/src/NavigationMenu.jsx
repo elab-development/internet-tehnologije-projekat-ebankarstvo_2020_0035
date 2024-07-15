@@ -24,6 +24,7 @@ const NavigationMenu = () => {
     };
     event.preventDefault();
     sessionStorage.removeItem("auth_token");
+    sessionStorage.removeItem("role");
     axios(config);
     navigate("/");
   }

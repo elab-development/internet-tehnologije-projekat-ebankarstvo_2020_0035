@@ -14,10 +14,3 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/users', [UserController::class, 'index']); //  /users
-Route::get('/users/{id}', [UserController::class, 'show']); //   /users/id
-Route::post('/transfer', [TransferController::class, 'transfer']);
