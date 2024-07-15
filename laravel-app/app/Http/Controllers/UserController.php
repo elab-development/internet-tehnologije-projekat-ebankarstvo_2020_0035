@@ -100,19 +100,7 @@ class UserController extends Controller
 
         return response()->json(['message' => "User {$action} successfully", new UserResource($user)]);
     }
-    public function getById($id)
-    {
-        try {
-            $user = User::findOrFail($id); // Find user by ID
-
-            // Return only the 'name' field
-            return response()->json(['name' => $user->name]);
-
-        } catch (\Exception $e) {
-            // Handle not found exception or other errors
-            return response()->json(['error' => 'User not found'], 404);
-        }
-    }
+    
     public function getAccountsForUser()
     {
         // Get the currently authenticated user

@@ -16,7 +16,8 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\AdminReqistrationController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
-use App\Http\Controllers\TransferController;
+//use App\Http\Controllers\TransferController;
+use App\Http\Controllers\TransferExchangeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,37 +32,31 @@ use App\Http\Controllers\TransferController;
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', [UserController::class, 'authenticatedUser']);
-    Route::post('/transfer', [TransferController::class, 'transfer']);
+        //Route::post('/transfer', [TransferController::class, 'transfer']);
     Route::post('/transaction', [TransactionController::class, 'transaction']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/myAccounts', [UserController::class, 'getAccountsForUser']);
+    Route::get('/accounts', [UserController::class, 'getAccountsForUser']);
     #Route::get('/usersName/{id}', [UserController::class, 'getById'])->name('users.getById');
-    Route::get('/accounts/transactions/{accountId}', [TransactionController::class, 'getAllTransactions']);
+    Route::get('/accounts/{id}/transactions', [TransactionController::class, 'getAllTransactions']);
     #Route::get('/transactions/{account_id}/{start_date}/{end_date}', [TransactionController::class, 'transactionsBetweenDates']);
-    Route::get('/userTransactions', [TransactionController::class, 'transactionsBetweenDates']);
+    Route::get('/transactions', [TransactionController::class, 'transactionsBetweenDates']);
 });
 #{account_id}/{start_date}/{end_date}
 Route::group(['middleware' => ['auth:sanctum', 'admin']],function () {//3.tip
-    Route::resource('accounts', AccountController::class)->only(['update','store','destroy']);
+    //Route::resource('accounts', AccountController::class)->only(['update','store','destroy']);
     //Route::resource('transactions', TransactionController::class)->only([ 'update', 'destroy']);
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->only(['show','destroy']);
     //fali mi za usere
     //ne bih da dodaje kategoriju
     Route::get('/users', [UserController::class, 'index']); //api/users
     Route::get('/users/{id}', [UserController::class, 'show']); //api/users/id
-    //Route::get('/transactions/{start_date}/{end_date}', [TransactionController::class, 'transactionsBetweenDates']);
-    //Route::get('/transactions/{id}', [TransactionController::class, 'show']); //api/users/id
-    Route::get('/transactions', [TransactionController::class, 'index']);
-    Route::get('/accounts', [AccountController::class, 'index']); //api/accounts
-    Route::get('/accounts/{id}', [AccountController::class, 'show']);  //api/accounts/id
-    Route::get('/categories', [CategoryController::class, 'index']); //api/categories
-    Route::get('/categories/{id}', [CategoryController::class, 'show']);  //api/categories/id
+   
 });
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
 
 Route::get('/forgot-password', function () {
-    return 'Nesto';
+   return response()->json(['message' => 'Nesto']);
 })->middleware('guest')->name('password.request');
 Route::post('/forgot-password', function (Request $request) {
         $request->validate(['email' => 'required|email']);
@@ -84,9 +79,9 @@ Route::post('/forgot-password', function (Request $request) {
         }
     })->name('password.email');
 
-Route::get('/reset-password/{token}',  function () {
-    return 'stranica za reset';
-})->name('password.reset');
+//Route::get('/reset-password/{token}',  function () {
+//    return response()->json(['message' => 'Stranica za reset']);
+//})->name('password.reset');
 
 Route::post('/reset-password', function (Request $request) {
         $request->validate([
@@ -115,12 +110,4 @@ Route::post('/reset-password', function (Request $request) {
         return response()->json(['error' => 'Nismo promenili problem ima: ' . $e->getMessage()], 500);
     }
     })->name('password.update');
-Route::get('/transactions/{account_id}/{start_date}/{end_date}', [TransactionController::class, 'transactionsBetweenDates']);
 
-
-
-Route::post('/transfer', [TransferController::class, 'transfer']);
-//Route::post('/admin/register', [AdminReqistrationController::class, 'register']);//2.tip
-//Route::post('/admin/login', [AdminReqistrationController::class, 'login'])->name('admin.login.post');
-//Route::post('/admin/logout', [AdminReqistrationController::class, 'logout']);
-//Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');//1.tip

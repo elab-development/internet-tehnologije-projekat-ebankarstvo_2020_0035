@@ -145,10 +145,10 @@ class TransactionController extends Controller
             })
             ->get();
             Log::info($allTransactions->toArray());
-            return [
+            return response()->json([
                 'paginatedTransactions' => $paginatedTransactions,
                 'allTransactions' => $allTransactions,
-            ];
+            ]);
        
 
         } catch (\Exception $e) {

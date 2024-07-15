@@ -13,7 +13,7 @@ function Statistics() {
 
   const configMonthly = {
     method: "get",
-    url: `api/userTransactions?account_id=${accountId}&start_date= ${dayjs()
+    url: `api/transactions?account_id=${accountId}&start_date= ${dayjs()
       .subtract(30, "days")
       .format("YYYY-MM-DD")}&end_date=${dayjs()
       .add(1, "days")
@@ -25,7 +25,7 @@ function Statistics() {
 
   const configQuarterly = {
     method: "get",
-    url: `api/userTransactions?account_id=${accountId}&start_date= ${dayjs()
+    url: `api/transactions?account_id=${accountId}&start_date= ${dayjs()
       .subtract(3, "month")
       .format("YYYY-MM-DD")}&end_date=${dayjs()
       .add(1, "days")
@@ -37,7 +37,7 @@ function Statistics() {
 
   const configYearly = {
     method: "get",
-    url: `api/userTransactions?account_id=${accountId}&start_date= ${dayjs()
+    url: `api/transactions?account_id=${accountId}&start_date= ${dayjs()
       .subtract(12, "month")
       .format("YYYY-MM-DD")}&end_date=${dayjs()
       .add(1, "days")
@@ -49,7 +49,7 @@ function Statistics() {
 
   const configAccounts = {
     method: "get",
-    url: "api/myAccounts",
+    url: "api/accounts",
     headers: {
       Authorization: "Bearer " + sessionStorage.getItem("auth_token"),
     },

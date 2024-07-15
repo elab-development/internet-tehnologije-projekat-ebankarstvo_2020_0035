@@ -14,7 +14,7 @@ function Transfer() {
 
   const config = {
     method: "get",
-    url: "api/myAccounts",
+    url: "api/accounts",
     headers: {
       Authorization: "Bearer " + sessionStorage.getItem("auth_token"),
     },

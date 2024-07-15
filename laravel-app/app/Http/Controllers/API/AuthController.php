@@ -29,7 +29,7 @@ class AuthController extends Controller
             return response()->json(['error' => $validator->errors()], 422);
         }
 
-        $role = $request->input('role', 'user');
+        $role = $request->input('role', 'user');//user default
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
