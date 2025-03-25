@@ -1,0 +1,185 @@
+{
+    "transaction": [
+      {
+        "id": 1,
+        "description": "Purchase at a store",
+        "amount": "$100",
+        "category": "Payments"
+      },
+      {
+        "id": 2,
+        "description": "Market",
+        "amount": "$50",
+        "category": "Payments"
+      },
+      {
+        "id": 3,
+        "description": "Transfer to Milica",
+        "amount": "$30",
+        "category": "Transfers"
+      },
+      {
+        "id": 4,
+        "description": "Gym membership",
+        "amount": "$40",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 5,
+        "description": "Netflix Subscribtion",
+        "amount": "$23.28",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 6,
+        "description": "Gym membership",
+        "amount": "$24.76",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 7,
+        "description": "Wallmart Subscribtion",
+        "amount": "$13.99",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 8,
+        "description": "Transfer to Jason",
+        "amount": "$109.81",
+        "category": "Transfers"
+      },
+      {
+        "id": 9,
+        "description": "Market",
+        "amount": "$52.80",
+        "category": "Payments"
+      },
+      {
+        "id": 10,
+        "description": "Water bill",
+        "amount": "$244.84",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 11,
+        "description": "Money Transfer",
+        "amount": "$32.81",
+        "category": "Transfers"
+      },
+      {
+        "id": 12,
+        "description": "Gym membership",
+        "amount": "$46.62",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 13,
+        "description": "Purchase at a store",
+        "amount": "$107.89",
+        "category": "Payments"
+      },
+      {
+        "id": 14,
+        "description": "Market",
+        "amount": "$54.87",
+        "category": "Payments"
+      },
+      {
+        "id": 15,
+        "description": "Amazon delivery",
+        "amount": "$123.73",
+        "category": "Payments"
+      },
+      {
+        "id": 16,
+        "description": "Clothing store",
+        "amount": "$63.17",
+        "category": "Payments"
+      },
+      {
+        "id": 17,
+        "description": "Gym membership",
+        "amount": "$70.76",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 18,
+        "description": "Transfer",
+        "amount": "$129.69",
+        "category": "Transfers"
+      },
+      {
+        "id": 19,
+        "description": "Gym membership",
+        "amount": "$24.04",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 20,
+        "description": "Subscribtion",
+        "amount": "$16.19",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 21,
+        "description": "Purchase at a store",
+        "amount": "$54.41",
+        "category": "Payments"
+      },
+      {
+        "id": 22,
+        "description": "Amazon delivery",
+        "amount": "$137.11",
+        "category": "Payments"
+      },
+      {
+        "id": 23,
+        "description": "Amazon delivery",
+        "amount": "$52.68",
+        "category": "Payments"
+      },
+      {
+        "id": 24,
+        "description": "Gym membership",
+        "amount": "$57.45",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 25,
+        "description": "Aliexpress delivery",
+        "amount": "$15.93",
+        "category": "Payments"
+      },
+      {
+        "id": 26,
+        "description": "Subscribtion",
+        "amount": "$93.82",
+        "category": "Monthly payments"
+      },
+      {
+        "id": 27,
+        "description": "Purchase at a store",
+        "amount": "$132.09",
+        "category": "Payments"
+      },
+      {
+        "id": 28,
+        "description": "Amazon delivery",
+        "amount": "$148.87",
+        "category": "Payments"
+      },
+      {
+        "id": 29,
+        "description": "Money Transfer",
+        "amount": "$60.58",
+        "category": "Transfers"
+      },
+      {
+        "id": 30,
+        "description": "Gym membership",
+        "amount": "$19.35",
+        "category": "Monthly payments"
+      }
+    ]
+  }
+  

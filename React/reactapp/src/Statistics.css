@@ -1,0 +1,20 @@
+.buttonDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 0;
+  width: 500px;
+}
+.container {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.chart {
+  width: 1000px;
+}
